@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LinkedIn Banner - Ruhul Amin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 16px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .label { color: #555; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .banner {
+    width: 1584px; height: 396px;
+    position: relative; overflow: hidden;
+    background: #050d1a;
+    transform: scale(0.5);
+    transform-origin: top center;
+    margin-bottom: -198px;
+  }
+
+  .bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 90% at 80% 50%, #0a3d6b 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 5% 90%, #021529 0%, transparent 50%),
+      linear-gradient(135deg, #020e1f 0%, #051828 50%, #0a1f3a 100%);
+  }
+
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,120,255,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,120,255,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 90% 100% at 70% 50%, black 20%, transparent 70%);
+  }
+
+  .orb1 { position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(0,100,255,0.18) 0%, transparent 70%); top:-150px; right:100px; }
+  .orb2 { position:absolute; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(0,200,150,0.1) 0%, transparent 70%); bottom:-80px; right:30px; }
+
+  .circuit { position:absolute; right:0; top:0; width:700px; height:100%; opacity:0.18; }
+
+  /* ── TOP LEFT: Tag + Name + Title ── */
+  .top-left {
+    position: absolute;
+    left: 80px; top: 48px;
+    z-index: 10;
+  }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,120,255,0.15); border: 1px solid rgba(0,120,255,0.3);
+    border-radius: 4px; padding: 6px 16px; margin-bottom: 16px; width: fit-content;
+  }
+  .tag-dot { width:7px; height:7px; border-radius:50%; background:#00e676; box-shadow:0 0 8px #00e676; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .tag-text { font-size:14px; font-weight:500; color:#00c8ff; letter-spacing:2px; text-transform:uppercase; }
+
+  .name { font-family:'Syne',sans-serif; font-size:82px; font-weight:800; color:#fff; line-height:1; letter-spacing:-2px; margin-bottom:10px; }
+  .name span { color:#1d6dff; }
+
+  .title { font-size:24px; font-weight:300; color:rgba(255,255,255,0.65); letter-spacing:0.3px; }
+  .title strong { color:rgba(255,255,255,0.95); font-weight:500; }
+
+  /* ── BOTTOM: Stats + Badges (shifted right to avoid profile photo) ── */
+  .bottom-row {
+    position: absolute;
+    /* LinkedIn profile photo covers roughly left 0–320px at bottom */
+    left: 360px;
+    bottom: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    z-index: 10;
+  }
+
+  .stats { display:flex; gap:0; }
+  .stat { display:flex; flex-direction:column; padding-right:36px; margin-right:36px; border-right:1px solid rgba(255,255,255,0.12); }
+  .stat:last-child { border-right:none; }
+  .stat-num { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; color:#fff; line-height:1; }
+  .stat-num span { color:#1d6dff; }
+  .stat-label { font-size:14px; color:rgba(255,255,255,0.45); margin-top:4px; letter-spacing:0.3px; }
+
+  .badges { display:flex; gap:12px; flex-wrap:wrap; }
+  .badge {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px; padding: 8px 20px;
+    font-size: 15px; color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px; font-weight: 500;
+  }
+
+  /* ── RIGHT: Code Card ── */
+  .right { position:absolute; right:72px; top:50%; transform:translateY(-50%); z-index:10; }
+
+  .code-card {
+    background: rgba(5,20,45,0.88);
+    border: 1px solid rgba(0,120,255,0.25);
+    border-radius: 12px; padding: 26px 30px; width: 370px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0,80,200,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .code-top { display:flex; gap:6px; margin-bottom:16px; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .dot-r{background:#ff5f57;} .dot-y{background:#febc2e;} .dot-g{background:#28c840;}
+
+  .code-line { font-family:'Courier New',monospace; font-size:17px; line-height:1.9; color:rgba(255,255,255,0.4); white-space:nowrap; }
+  .kw{color:#569cd6;} .str{color:#ce9178;} .val{color:#4ec9b0;} .cm{color:#6a9955;}
+
+  .contact-row { margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.07); display:flex; flex-direction:column; gap:8px; }
+  .contact-item { display:flex; align-items:center; gap:10px; font-size:16px; color:rgba(255,255,255,0.55); white-space:nowrap; }
+  .contact-icon { width:20px; height:20px; background:rgba(0,120,255,0.2); border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#4aa3ff; flex-shrink:0; }
+
+  .fade-bottom { position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent, rgba(5,13,26,0.4)); }
+  .info { color:#444; font-size:12px; text-align:center; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<p class="label">LinkedIn Banner Preview — 1584 × 396px</p>
+
+<div class="banner">
+  <div class="bg"></div>
+  <div class="grid"></div>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+
+  <svg class="circuit" viewBox="0 0 700 396" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="550" cy="80" r="120" stroke="rgba(0,120,255,0.4)" stroke-width="1"/>
+    <circle cx="550" cy="80" r="80"  stroke="rgba(0,120,255,0.3)" stroke-width="1"/>
+    <circle cx="550" cy="80" r="40"  stroke="rgba(0,200,255,0.5)" stroke-width="1.5"/>
+    <circle cx="550" cy="80" r="8"   fill="rgba(0,200,255,0.8)"/>
+    <line x1="550" y1="0"   x2="550" y2="400" stroke="rgba(0,120,255,0.12)" stroke-width="1"/>
+    <line x1="400" y1="80"  x2="700" y2="80"  stroke="rgba(0,120,255,0.12)" stroke-width="1"/>
+    <circle cx="350" cy="300" r="60" stroke="rgba(0,200,150,0.25)" stroke-width="1"/>
+    <circle cx="350" cy="300" r="30" stroke="rgba(0,200,150,0.15)" stroke-width="1"/>
+    <circle cx="350" cy="300" r="5"  fill="rgba(0,200,150,0.5)"/>
+    <line x1="620" y1="200" x2="700" y2="200" stroke="rgba(0,120,255,0.25)" stroke-width="1"/>
+    <line x1="620" y1="200" x2="620" y2="320" stroke="rgba(0,120,255,0.25)" stroke-width="1"/>
+    <circle cx="620" cy="320" r="4" fill="rgba(0,120,255,0.4)"/>
+  </svg>
+
+  <!-- TOP LEFT: Tag + Name + Title -->
+  <div class="top-left">
+    <div class="tag">
+      <div class="tag-dot"></div>
+      <span class="tag-text">Available for Projects</span>
+    </div>
+    <div class="name">Md. Ruhul <span>Amin</span></div>
+    <div class="title"><strong>WordPress & WooCommerce Developer</strong> | Dhaka, Bangladesh</div>
+  </div>
+
+  <!-- BOTTOM: Stats + Badges (right of profile photo area) -->
+  <div class="bottom-row">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">350<span>+</span></div>
+        <div class="stat-label">Websites Delivered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+    <div class="badges">
+      <div class="badge">WordPress</div>
+      <div class="badge">WooCommerce</div>
+      <div class="badge">PHP</div>
+      <div class="badge">SEO</div>
+      <div class="badge">Elementor</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Code Card -->
+  <div class="right">
+    <div class="code-card">
+      <div class="code-top">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+      </div>
+      <div class="code-line"><span class="cm">// Let's build something great</span></div>
+      <div class="code-line"><span class="kw">const</span> developer = {</div>
+      <div class="code-line">&nbsp;&nbsp;name: <span class="str">"Ruhul Amin"</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;skills: <span class="val">["WP","WC"]</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;sites: <span class="val">350</span>,</div>
+      <div class="code-line">&nbsp;&nbsp;ready: <span class="val">true</span></div>
+      <div class="code-line">}</div>
+      <div class="contact-row">
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          dev.bdruhul@gmail.com
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          +8801581401877
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-bottom"></div>
+</div>
+
+<p class="info">⬇ Browser এ open করে Full Page Screenshot নিন → LinkedIn এ upload করুন</p>
+
+</body>
+</html>
